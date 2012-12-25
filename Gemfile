@@ -1,5 +1,6 @@
 source :rubygems
 gem 'rspec'
+gem 'ruby-terminfo'
 gem 'rainbow'
 
 group :development do
