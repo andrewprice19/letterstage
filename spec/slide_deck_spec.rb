@@ -20,4 +20,13 @@ describe SlideDeck do
     deck.next
     deck.next.should == 'abc'
   end
+
+  it 'can return the previous slide' do
+    deck.next
+    deck.prev.should == '123'
+  end
+  
+  it 'does not step over the first slide' do
+    deck.prev.should == '123'
+  end
 end

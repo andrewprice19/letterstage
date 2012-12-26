@@ -13,6 +13,12 @@ class SlideDeck
     slide
   end
 
+  def prev
+    @current_slide -= 1 if @current_slide != 1
+    slide = @slides[@current_slide - 1]
+    slide
+  end
+
   def length
     @slides.length
   end

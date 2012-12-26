@@ -1,27 +1,41 @@
 require_relative './slide_deck'
 require_relative './screen'
-require_relative './slide'
+require_relative './slide_source'
 
 require 'terminfo'
+require 'io/console'
 
 class Letterstage
+  attr_reader :deck, :screen, :slide_dir
+
   def initialize(args)
-    @slide_dir = args[0]
+    slide_store = SlideSource.new(args[0])
+    @deck = SlideDeck.new(slide_store)
+    
+    width, height =  TermInfo.screen_size 
+    @screen = Screen.new(height, width)
   end
 
   def run
-    slides = []
-    Dir.foreach(@slide_dir) do |item|
-      next unless item.match '(.)+\.md'
-      slide_path = @slide_dir + item
-      slides << Slide.new(File.read(slide_path))
-    end
+    next_slide
 
-    deck = SlideDeck.new(slides)
-    width, height =  TermInfo.screen_size 
+    loop do
+     case $stdin.getch
+     when "n" then next_slide
+     when "p" then previous_slide 
+     when "q" then break
+     end
+   end
+  end
 
-    screen = Screen.new(height, width, deck)
-    puts screen.render
+  private
+
+  def next_slide
+    puts screen.render(deck.next)
+  end
+
+  def previous_slide
+    puts screen.render(deck.prev)
   end
 end
 

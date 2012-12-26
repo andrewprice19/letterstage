@@ -1,13 +1,11 @@
 class Screen
-  def initialize(width, height, deck)
+  def initialize(width, height)
     @width = width
     @height = height
-    @deck = deck
   end
 
-  def render
+  def render(slide)
     system('clear')
-    slide = @deck.next
 
     slide = align_horizontaly(slide)
     align_verticaly(slide)
