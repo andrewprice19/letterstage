@@ -1,4 +1,4 @@
-require 'rainbow'
+require_relative './terminal_formatter'
 
 class Slide
   def initialize(content)
@@ -6,7 +6,8 @@ class Slide
   end
 
   def render
-    @content.sub(/^#.*$/) {|match| match.inverse}
+    markdown = Redcarpet::Markdown.new(TerminalFormatter)
+    markdown.render(@content)
   end
 end
 
