@@ -7,4 +7,5 @@ group :development do
   gem 'rb-fsevent'
   gem 'ruby_gntp'
   gem 'guard-rspec'
+  gem 'simplecov'
 end
